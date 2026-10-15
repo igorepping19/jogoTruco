@@ -1,0 +1,12 @@
+
+# Java compilado
+*.class
+build/
+dist/
+
+# Configurações privadas do NetBeans
+nbproject/private/
+
+# Arquivos do Windows
+Thumbs.db
+Desktop.ini
