@@ -17,6 +17,7 @@ public class Baralho {
 
     public void criarBaralho() {
         int indice = 0;
+        proximaCarta = 0;
 
         for (String naipe : naipes) {
             for (String numero : numerosCartas) {
@@ -41,12 +42,15 @@ public class Baralho {
 
     public void distribuirCartas(Jogador jogador1, Jogador jogador2) {
         for (int i = 0; i < 3; i++) {
-            jogador1.receberCarta(cartas[proximaCarta++]);
-            jogador2.receberCarta(cartas[proximaCarta++]);
+            jogador1.receber(cartas[proximaCarta++]);
+            jogador2.receber(cartas[proximaCarta++]);
         }
     }
 
     public Carta revelarVira() {
         return cartas[proximaCarta++];
     }
+
 }
+
+
