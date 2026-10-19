@@ -9,12 +9,14 @@ public class Jogador {
         this.nome = nome;
         this.posicao = posicao;
     }
+
     public void receber(Carta carta) {
         if (quantidadeCartas < cartas.length) {
             cartas[quantidadeCartas] = carta;
             quantidadeCartas++;
         }
     }
+
     public Carta jogar(int posicaoCarta) {
         if (posicaoCarta < 0 || posicaoCarta >= quantidadeCartas) {
             System.out.println("Posicao de carta invalida");
@@ -29,6 +31,7 @@ public class Jogador {
         quantidadeCartas--;
         return Jogada;
     }
+
     public Jogador proximo(Jogador[] jogadores) {
         int Posicao = this.posicao - 1;
 
@@ -39,6 +42,13 @@ public class Jogador {
     }
 
     public void jogarNaRodada() {
-        //Incompleto
+        // Incompleto
+    }
+
+    public void limparMao() {
+        for (int i = 0; i < cartas.length; i++) {
+            cartas[i] = null;
+        }
+        quantidadeCartas = 0;
     }
 }

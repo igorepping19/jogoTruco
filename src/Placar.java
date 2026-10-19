@@ -6,16 +6,20 @@ public class Placar {
     public void marcarTruco(int dupla) {
         adicionarPontos(dupla, 3);
     }
+
     public void marcarSeis(int dupla) {
         adicionarPontos(dupla, 6);
     }
+
     public void marcarNove(int dupla) {
         adicionarPontos(dupla, 9);
     }
+
     public void marcarDoze(int dupla) {
         adicionarPontos(dupla, 12);
     }
-    private void adicionarPontos(int dupla, int pontos) {
+
+    public void adicionarPontos(int dupla, int pontos) {
         if (dupla == 1) {
             pontosDupla1 += pontos;
         } else if (dupla == 2) {
@@ -38,13 +42,19 @@ public class Placar {
             mostrarPlacar();
         }
     }
+
     public void mostrarPlacar() {
         System.out.println("Placar: " + pontosDupla1 + " x " + pontosDupla2);
     }
+
     public void zerarPlacar() {
         pontosDupla1 = 0;
         pontosDupla2 = 0;
 
         System.out.println("Placar reiniciado: 0 x 0");
+    }
+
+    public void marcarMao(int jogador) {
+        adicionarPontos(jogador, 1);
     }
 }
