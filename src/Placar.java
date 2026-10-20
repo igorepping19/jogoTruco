@@ -28,18 +28,19 @@ public class Placar {
             System.out.println("Dupla invalida");
             return;
         }
+
         if (pontosDupla1 >= 12) {
             pontosDupla1 = 12;
-            mostrarPlacar();
-            System.out.println("Dupla 1 venceu a partida!");
-            zerarPlacar();
         } else if (pontosDupla2 >= 12) {
             pontosDupla2 = 12;
-            mostrarPlacar();
-            System.out.println("Dupla 2 venceu a partida!");
-            zerarPlacar();
-        } else {
-            mostrarPlacar();
+        }
+
+        mostrarPlacar();
+
+        if (pontosDupla1 >= 12) {
+            System.out.println("Você venceu a partida!");
+        } else if (pontosDupla2 >= 12) {
+            System.out.println("O computador venceu a partida!");
         }
     }
 

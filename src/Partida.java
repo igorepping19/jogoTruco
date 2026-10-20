@@ -48,52 +48,92 @@ public class Partida {
 
         int vitoriasJogador = 0;
         int vitoriasComputador = 0;
+        int quemComeca = 1;
+        int[] resultados = new int[3];
 
         for (int i = 1; i <= 3; i++) {
             System.out.println("\n--- Rodada " + i + " ---");
-            System.out.println("Suas cartas:");
+
+            Carta cartaJogador;
+            Carta cartaComputador;
+            int resultado;
+            int escolha;
+
+            if (quemComeca == 2) {
+                cartaComputador = jogador2.jogar(0);
+                System.out.println("\nComputador jogou: " + cartaComputador);
+            } else {
+                cartaComputador = null;
+            }
+
+            System.out.println("\nSuas cartas:");
 
             for (int j = 0; j < jogador1.quantidadeCartas; j++) {
                 System.out.println((j + 1) + " - " + jogador1.cartas[j]);
             }
 
             System.out.print("Escolha uma carta: ");
-            int escolha = scanner.nextInt();
+            escolha = scanner.nextInt();
 
             while (escolha < 1 || escolha > jogador1.quantidadeCartas) {
                 System.out.print("Escolha inválida. Digite novamente: ");
                 escolha = scanner.nextInt();
             }
 
-            Carta cartaJogador = jogador1.jogar(escolha - 1);
-            Carta cartaComputador = jogador2.jogar(0);
+            cartaJogador = jogador1.jogar(escolha - 1);
 
-            System.out.println("Você jogou: " + cartaJogador);
-            System.out.println("Computador jogou: " + cartaComputador);
+            if (quemComeca == 1) {
+                cartaComputador = jogador2.jogar(0);
+                System.out.println("\nVocê jogou: " + cartaJogador);
+                System.out.println("Computador jogou: " + cartaComputador);
+            } else {
+                System.out.println("\nVocê jogou: " + cartaJogador);
+            }
 
-            int resultado = rodada.compararCartas(cartaJogador, cartaComputador);
+            System.out.println();
 
+            resultado = rodada.compararCartas(cartaJogador, cartaComputador);
+            resultados[i - 1] = resultado;
             if (resultado == 1) {
                 vitoriasJogador++;
+                quemComeca = 1;
                 System.out.println("Você venceu a rodada!");
             } else if (resultado == 2) {
                 vitoriasComputador++;
+                quemComeca = 2;
                 System.out.println("O computador venceu a rodada!");
             } else {
                 System.out.println("A rodada empatou!");
             }
-
-            if (vitoriasJogador == 2 || vitoriasComputador == 2) {
+            if (vitoriasJogador == 2 || vitoriasComputador == 2
+                    || (i == 2 && resultados[0] == 0 && resultados[1] != 0)
+                    || (i == 2 && resultados[0] != 0 && resultados[1] == 0)) {
                 break;
             }
         }
 
         System.out.println("\n--- Resultado da mão ---");
 
-        if (vitoriasJogador > vitoriasComputador) {
+        int vencedor = 0;
+
+        if (vitoriasJogador >= 2) {
+            vencedor = 1;
+        } else if (vitoriasComputador >= 2) {
+            vencedor = 2;
+        } else if (resultados[0] == 0) {
+            vencedor = resultados[1] != 0
+                    ? resultados[1]
+                    : resultados[2];
+        } else if (resultados[1] == 0 || resultados[2] == 0) {
+            vencedor = resultados[0];
+        } else {
+            vencedor = resultados[2];
+        }
+
+        if (vencedor == 1) {
             System.out.println("Você venceu a mão!");
             placar.marcarMao(1);
-        } else if (vitoriasComputador > vitoriasJogador) {
+        } else if (vencedor == 2) {
             System.out.println("O computador venceu a mão!");
             placar.marcarMao(2);
         } else {
