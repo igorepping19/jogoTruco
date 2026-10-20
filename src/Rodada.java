@@ -15,7 +15,8 @@ public class Rodada {
             case "4": manilha = "5"; break;
             case "5": manilha = "6"; break;
             case "6": manilha = "7"; break;
-            case "7": manilha = "Q"; break;
+            case "7": manilha = "10"; break;
+            case "10": manilha = "Q"; break;
             case "Q": manilha = "J"; break;
             case "J": manilha = "K"; break;
             case "K": manilha = "A"; break;
