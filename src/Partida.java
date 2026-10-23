@@ -50,6 +50,7 @@ public class Partida {
         int vitoriasComputador = 0;
         int quemComeca = 1;
         int[] resultados = new int[3];
+        int valorMao = 1;
 
         for (int i = 1; i <= 3; i++) {
             System.out.println("\n--- Rodada " + i + " ---");
@@ -58,6 +59,53 @@ public class Partida {
             Carta cartaComputador;
             int resultado;
             int escolha;
+            int acao = 0;
+
+            while (acao != 2) {
+                if (valorMao == 1) {
+                    System.out.println("\n1 - Pedir truco");
+                } else if (valorMao == 3) {
+                    System.out.println("\n1 - Pedir seis");
+                } else if (valorMao == 6) {
+                    System.out.println("\n1 - Pedir nove");
+                } else if (valorMao == 9) {
+                    System.out.println("\n1 - Pedir doze");
+                }
+
+                System.out.println("2 - Jogar carta");
+                System.out.print("Escolha uma opção: ");
+                acao = scanner.nextInt();
+
+                if (acao == 1 && valorMao < 12) {
+                    int valorAnterior = valorMao;
+
+                    if (valorMao == 1) {
+                        System.out.println("Você pediu truco!");
+                        valorMao = 3;
+                    } else if (valorMao == 3) {
+                        System.out.println("Você pediu seis!");
+                        valorMao = 6;
+                    } else if (valorMao == 6) {
+                        System.out.println("Você pediu nove!");
+                        valorMao = 9;
+                    } else if (valorMao == 9) {
+                        System.out.println("Você pediu doze!");
+                        valorMao = 12;
+                    }
+
+                    if (Math.random() < 0.7) {
+                        System.out.println("O computador aceitou!");
+                    } else {
+                        System.out.println("O computador correu!");
+                        placar.adicionarPontos(1, valorAnterior);
+                        return;
+                    }
+                } else if (acao != 2) {
+                    System.out.println(
+                        "Opção inválida. Escolha uma opção do menu."
+                    );
+                }
+            }
 
             if (quemComeca == 2) {
                 cartaComputador = jogador2.jogar(0);
@@ -132,10 +180,10 @@ public class Partida {
 
         if (vencedor == 1) {
             System.out.println("Você venceu a mão!");
-            placar.marcarMao(1);
+            placar.adicionarPontos(1, valorMao);
         } else if (vencedor == 2) {
             System.out.println("O computador venceu a mão!");
-            placar.marcarMao(2);
+            placar.adicionarPontos(2, valorMao);
         } else {
             System.out.println("A mão terminou empatada!");
         }
